@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://sql12.freemysqlhosting.net:3306/sql12659166
+    username: sql12659166
+    password: taXA9f7WrP
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
