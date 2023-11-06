@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -28,48 +29,17 @@ public class ProjectSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/myAccount", "/myBalance", "/myCards", "/myLoan").authenticated()
-                        .requestMatchers("/contact", "/notices").permitAll()
+                        .requestMatchers("/contact", "/notices", "/register").permitAll()
                 );
 
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
         return http.build();
     }
-   /* @Bean
-    public InMemoryUserDetailsManager userDetailsManager(){
-        //Approach 1
 
-        *//*UserDetails admin = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("12345")
-                .roles("admin")
-                .build();
-        UserDetails user = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("12345")
-                .roles("user")
-                .build();
-        return new InMemoryUserDetailsManager(admin, user);*//*
-
-        //Approach 2
-        UserDetails admin = User.withUsername("admin")
-                .password("12345")
-                .roles("admin")
-                .build();
-        UserDetails user = User.withUsername("user")
-                .password("12345")
-                .roles("user")
-                .build();
-        return new InMemoryUserDetailsManager(admin, user);
-    }*/
-
-   /* @Bean
-    public UserDetailsService userDetailsService(DataSource dataSource){
-        return new JdbcUserDetailsManager(dataSource);
-    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 }
