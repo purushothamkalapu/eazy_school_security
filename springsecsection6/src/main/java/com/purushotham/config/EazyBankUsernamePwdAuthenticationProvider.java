@@ -1,6 +1,6 @@
 package com.purushotham.config;
 
-import com.purushotham.entity.CustomerEntity;
+import com.purushotham.entity.Customer;
 import com.purushotham.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -26,7 +26,7 @@ public class EazyBankUsernamePwdAuthenticationProvider implements Authentication
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String pwd = authentication.getCredentials().toString();
-        List<CustomerEntity> customer = customerRepository.findByEmail(username);
+        List<Customer> customer = customerRepository.findByEmail(username);
         if (customer.size() > 0) {
             if (passwordEncoder.matches(pwd, customer.get(0).getPwd())) {
                 List<GrantedAuthority> authorities = new ArrayList<>();

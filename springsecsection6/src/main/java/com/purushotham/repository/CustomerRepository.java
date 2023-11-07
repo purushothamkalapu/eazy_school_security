@@ -1,10 +1,12 @@
 package com.purushotham.repository;
 
-import com.purushotham.entity.CustomerEntity;
+import com.purushotham.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface CustomerRepository extends JpaRepository<CustomerEntity, Long> {
-    List<CustomerEntity> findByEmail(String email);
+@Repository
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    List<Customer> findByEmail(String email);
 }
