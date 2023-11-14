@@ -1,6 +1,7 @@
 package com.purushotham.controller;
 
 import com.mysql.cj.protocol.x.Notice;
+import com.purushotham.entity.NoticeDetail;
 import com.purushotham.repository.NoticeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
@@ -17,15 +18,15 @@ public class NoticesController {
     private NoticeRepository noticeRepository;
 
     @GetMapping("/notices")
-    public ResponseEntity<List<Notice>> getNotices() {
-       /* List<Notice> notices = noticeRepository.findByAllActiveNotices();
+    public ResponseEntity<List<NoticeDetail>> getNotices() {
+        List<NoticeDetail> notices = noticeRepository.findAllActiveNotices();
         if (notices != null ) {
             return ResponseEntity.ok()
                     .cacheControl(CacheControl.maxAge(60, TimeUnit.SECONDS))
                     .body(notices);
         }else {
             return null;
-        }*/
-        return null;
+        }
+       // return null;
     }
 }
